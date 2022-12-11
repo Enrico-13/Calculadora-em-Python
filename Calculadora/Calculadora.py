@@ -76,37 +76,37 @@ def selection(msg):
 
 # Função soma
 def soma():
+    numbers = []
+    numbers.clear()
     while True:
         # Pedir os números a serem somados
         next_val = checklist('Digite um número: ')
         if next_val == 'continue':
-            break
+            return 'continue'
         else:
             # Adicionar o número a ser somado na lista
             numbers.append(next_val)
             end = finish()
             if end == 'N':
                 break
-    if next_val == 'continue':
-        return 'continue'
     # Somar e apresentar resultado
     return numbers, sum(numbers)
 
 # Função subtração
 def subtracao():
+    numbers = []
+    numbers.clear()
     while True:
         # Pedir números a serem subtraídos
         next_val = checklist('Digite um número: ')
         if next_val == 'continue':
-            break
+            return 'continue'
         else:
             # Adicionar números na lista
             numbers.append(next_val)
             end = finish()
             if end == 'N':
                 break
-    if next_val == 'continue':
-        return 'continue'
     # Subtrair números e apresentar resultado
     for idx, val in enumerate(numbers):
         # Caso seja o primeiro número da lista, considerar como número base
@@ -119,19 +119,19 @@ def subtracao():
 
 # Função multiplicação
 def multiplicacao():
+    numbers = []
+    numbers.clear()
     while True:
         # Pedir números a serem multiplicados
         next_val = checklist('Digite um número: ')
         if next_val == 'continue':
-            break
+            return 'continue'
         else:
             # Adicionar números na lista
             numbers.append(next_val)
             end = finish()
             if end == 'N':
                 break
-    if next_val == 'continue':
-        return 'continue'
     # Calcular e apresentar resultado
     if 0 not in numbers:
         for idx, val in enumerate(numbers):
@@ -142,41 +142,146 @@ def multiplicacao():
                 result *= val
         return numbers, result
     else:
-        return numbers, 0
+        return numbers, 0.0
 
 
 # função divisão
 def divisao():
-    pass
+    numbers = []
+    numbers.clear()
+    while True:
+        # Pedir números a serem divididos
+        next_val = checklist('Digite um número: ')
+        if next_val == 'continue':
+            return 'continue'
+        # Caso algum dividendo seja igual a zero, apresentar erro
+        elif next_val == 0 and numbers:
+            print('ERRO: Impossível dividir por ZERO!')
+            next_val = retry()
+            if next_val == 'continue':
+                return 'continue'
+        # Adicionar números na lista
+        else:
+            numbers.append(next_val)
+            end = finish()
+            if end == 'N':
+                break
+    # Calcular e apresentar resultado
+    if numbers[0] != 0:
+        for idx, val in enumerate(numbers):
+            # Caso seja o primeiro número da lista, considerar como número base
+            if idx == 0:
+                result = val
+            else:
+                result /= val
+        return numbers, result
+    else:
+        return numbers, 0.0
 
 
 # função potência
 def potencia():
-    pass
+    while True:
+        number = checklist('Digite um número: ')
+        if number == 'continue':
+            return 'continue'
+        # Pedir potência
+        power = checklist('Digite seu expoente: ')
+        if power == 'continue':
+            return 'continue'
+        # Evitar que o programa tente calcular raiz par de número negativo
+        elif power != 0:
+            if (1 / power) % 2 == 0 and number < 0:
+                print('ERRO: Raiz par de número negativo.')
+                power = retry()
+                if power == 'continue':
+                    return 'continue'
+            else:
+                break
+        else:
+            break
+    if power == 0:
+        return number, power, 1.0
+    else:
+        return number, power, number ** power
 
 
 # função raiz quadrada
 def raiz_quadrada():
-    pass
+    while True:
+        number = checklist('Digite um número: ')
+        if number == 'continue':
+            return 'continue'
+        elif number < 0:
+            print('ERRO: número informado não pode ser menor que ZERO!')
+            number = retry()
+            if number == 'continue':
+                return 'continue'
+        else:
+            break
+    return number, number ** 0.5
 
 
 # função média
 def media():
-    pass
+    numbers = []
+    numbers.clear()
+    while True:
+        # Pedir números que serão tirados a média
+        next_val = checklist('Digite um número: ')
+        if next_val == 'continue':
+            return 'continue'
+        # Adicionar números na lista
+        else:
+            numbers.append(next_val)
+            end = finish()
+            if end == 'N':
+                break
+    return numbers, mean(numbers)
 
 
 # função máximo
 def maximo():
-    pass
+    numbers = []
+    numbers.clear()
+    while True:
+        # Pedir números aos quais será apresentado o maior deles
+        next_val = checklist('Digite um número: ')
+        if next_val == 'continue':
+            return 'continue'
+        # Adicionar números na lista
+        else:
+            numbers.append(next_val)
+            end = finish()
+            if end == 'N':
+                break
+    return numbers, max(numbers)
 
 
 # função mínimo
 def minimo():
-    pass
+    numbers = []
+    numbers.clear()
+    while True:
+        # Pedir números aos quais será apresentado o menor deles
+        next_val = checklist('Digite um número: ')
+        if next_val == 'continue':
+            return 'continue'
+        # Adicionar números na lista
+        else:
+            numbers.append(next_val)
+            end = finish()
+            if end == 'N':
+                break
+    return numbers, min(numbers)
 
 
 # Função para calcular a área escolhida pelo usuário
-def area(shape):
+def area():
+    pass
+
+
+def area_calc(shape):
     # ÁREA DO QUADRADO / RETÂNGULO
     if shape == 1:
         selection('RETÂNGULO/QUADRADO SELECIONADO')
@@ -271,16 +376,55 @@ def area(shape):
 
 # função perímetro
 def perimetro():
-    pass
+    while True:
+        sides = checklist('Digite o número de lados da sua forma geométrica'
+                        ' (0 caso seja circunferência): ')
+        if sides < 0 or not sides.is_integer() or 0 < sides <= 2:
+            print('ERRO: Número inválido de lados.')
+            sides = retry()
+            if sides == 'continue':
+                return 'continue'
+        else:
+            break
+    # Caso seja escolhida uma circunferência, pedir o valor do raio e fazer
+    # o cálculo
+    if sides == 0:
+        while True:
+            radius = checklist('Digite o raio da circunferência: ')
+            if radius <= 0:
+                print('ERRO: Valor inválido para tamanho de raio.')
+                radius = retry()
+                if radius == 'continue':
+                    return 'continue'
+            else:
+                break
+        return (2 * pi * radius)
+    # Caso contrário, pedir o tamanho de cada lado da forma geométrica
+    # pedida e calcular o perímetro
+    elif sides != 'continue':
+        numbers = []
+        numbers.clear()
+        for i in range(int(sides)):
+            while True:
+                next_val = checklist(f'Digite o tamanho do {i + 1}° lado: ')
+                if next_val == 'continue':
+                    return 'continue'
+                elif next_val > 0:
+                    break
+                elif next_val <= 0:
+                    print('ERRO: Valor inválido para tamanho de lado.')
+                    next_val = retry()
+                    if next_val == 'continue':
+                        return 'continue'
+            numbers.append(next_val)
+        return sum(numbers)
 
 
 if __name__ == '__main__':
     # Criar o menu
     option = ''
-    numbers = []
     while True:
         # Limpar o menu, limpar a lista de números para operações
-        numbers.clear()
         system('cls')
         # Imprimir menu
         print('-' * 20)
@@ -345,155 +489,68 @@ if __name__ == '__main__':
         elif option == 'D':
             system('cls')
             selection('DIVISÃO SELECIONADA')
-            while True:
-                # Pedir números a serem divididos
-                next_val = checklist('Digite um número: ')
-                if next_val == 'continue':
-                    break
-                # Caso algum dividendo seja igual a zero, apresentar erro
-                elif next_val == 0 and len(numbers) != 0:
-                    print('ERRO: Impossível dividir por ZERO!')
-                    next_val = retry()
-                    if next_val == 'continue':
-                        break
-                # Adicionar números na lista
-                else:
-                    numbers.append(next_val)
-                    end = finish()
-                    if end == 'N':
-                        break
-            if next_val == 'continue':
+            resultado = divisao()
+            if resultado == 'continue':
                 continue
-            # Calcular e apresentar resultado
-            for idx, val in enumerate(numbers):
-                # Caso seja o primeiro número da lista, considerar como número base
-                if idx == 0:
-                    result = val
-                else:
-                    result /= val
-            print(*numbers, sep=' / ', end=' = ')
-            print(result)
-            input()
+            else:
+                print(*resultado[0], sep=' / ', end=' = ')
+                print(resultado[1])
+                input()
 
         # POTÊNCIA
         elif option == 'E':
             system('cls')
             selection('POTÊNCIA SELECIONADA')
-            # Pedir número que será elevada para a n-potência
-            while True:
-                number = checklist('Digite um número: ')
-                if number == 'continue':
-                    break
-                # Pedir potência
-                power = checklist('Digite seu expoente: ')
-                if power == 'continue':
-                    break
-                # Evitar que o programa tente calcular raiz par de número negativo
-                elif power != 0:
-                    if (1 / power) % 2 == 0 and number < 0:
-                        print('ERRO: Raiz par de número negativo.')
-                        power = retry()
-                        if power == 'continue':
-                            break
-                    else:
-                        break
-                else:
-                    break
-            if number == 'continue' or power == 'continue':
+            resultado = potencia()
+            if resultado == 'continue':
                 continue
-            # Calcular e apresentar resultado
-            result = number ** power
-            print(f'{number} ^ {power} = {result}')
-            input()
+            else:
+                print(f'{resultado[0]} ^ {resultado[1]} = {resultado[2]}')
+                input()
 
         # RAIZ QUADRADA
         elif option == 'F':
             system('cls')
             selection('RAIZ QUADRADA SELECIONADA')
-            # Pedir número para se tirar raiz quadrada
-            while True:
-                number = checklist('Digite um número: ')
-                if number == 'continue':
-                    break
-                elif number < 0:
-                    print('ERRO: número informado não pode ser menor que ZERO!')
-                    number = retry()
-                    if number == 'continue':
-                        break
-                else:
-                    break
-            if number == 'continue':
+            resultado = raiz_quadrada()
+            if resultado == 'continue':
                 continue
-            # Calcular e apresentar resultado
-            result = number ** 0.5
-            print(f'sqrt({number}) = {result}')
-            input()
+            else:
+                print(f'sqrt({resultado[0]}) = {resultado[1]}')
+                input()
             
         # MÉDIA
         elif option == 'G':
             system('cls')
             selection('MÉDIA SELECIONADA')
-            while True:
-                # Pedir números que serão tirados a média
-                next_val = checklist('Digite um número: ')
-                if next_val == 'continue':
-                    break
-                # Adicionar números na lista
-                else:
-                    numbers.append(next_val)
-                    end = finish()
-                    if end == 'N':
-                        break
-            if next_val == 'continue':
+            resultado = media()
+            if resultado == 'continue':
                 continue
-            # Calcular e apresentar resultado
-            result = mean(numbers)
-            print(f'Média de {numbers} = {result}')
-            input()
+            else:
+                print(f'Média de {resultado[0]} = {resultado[1]}')
+                input()
         
         # MÁXIMO
         elif option == 'H':
             system('cls')
             selection('MÁXIMO SELECIONADO')
-            while True:
-                # Pedir números aos quais será apresentado o maior deles
-                next_val = checklist('Digite um número: ')
-                if next_val == 'continue':
-                    break
-                # Adicionar números na lista
-                else:
-                    numbers.append(next_val)
-                    end = finish()
-                    if end == 'N':
-                        break
-            if next_val == 'continue':
+            resultado = maximo()
+            if resultado == 'continue':
                 continue
-            # Apresentar qual é o maior número da lista apresentada
-            result = max(numbers)
-            print(f'Máximo de {numbers} = {result}')
-            input()
+            else:
+                print(f'Máximo de {resultado[0]} = {resultado[1]}')
+                input()
             
         # MÍNIMO
         elif option == 'I':
             system('cls')
             selection('MÍNIMO SELECIONADO')
-            while True:
-                # Pedir números aos quais será apresentado o menor deles
-                next_val = checklist('Digite um número: ')
-                if next_val == 'continue':
-                    break
-                # Adicionar números na lista
-                else:
-                    numbers.append(next_val)
-                    end = finish()
-                    if end == 'N':
-                        break
-            if next_val == 'continue':
+            resultado = minimo()
+            if resultado == 'continue':
                 continue
-            # Apresentar qual é o menor número da lista apresentada
-            result = min(numbers)
-            print(f'Mínimo de {numbers} = {result}')
-            input()
+            else:
+                print(f'Mínimo de {resultado[0]} = {resultado[1]}')
+                input()
 
         # ÁREA
         elif option == 'J':
@@ -523,7 +580,7 @@ if __name__ == '__main__':
                 continue
             # Usar função area() para calcular a área desejada
             else:
-                result = area(int(decision))
+                result = area_calc(int(decision))
                 if result == 'continue':
                     continue
             # Apresentar resultado
@@ -534,59 +591,12 @@ if __name__ == '__main__':
         elif option == 'K':
             system('cls')
             selection('PERÍMETRO SELECIONADO')
-            # Pedir o número de lados do perímetro que será calculado
-            while True:
-                sides = checklist('Digite o número de lados da sua forma geométrica'
-                                ' (0 caso seja circunferência): ')
-                if sides < 0 or not sides.is_integer() or 0 < sides <= 2:
-                    print('ERRO: Número inválido de lados.')
-                    sides = retry()
-                    if sides == 'continue':
-                        break
-                else:
-                    break
-            # Caso seja escolhida uma circunferência, pedir o valor do raio e fazer
-            # o cálculo
-            if sides == 0:
-                while True:
-                    radius = checklist('Digite o raio da circunferência: ')
-                    if radius <= 0:
-                        print('ERRO: Valor inválido para tamanho de raio.')
-                        radius = retry()
-                        if radius == 'continue':
-                            break
-                    else:
-                        break
-                if radius == 'continue':
-                    continue
-                result = 2 * pi * radius
-            # Caso contrário, pedir o tamanho de cada lado da forma geométrica
-            # pedida e calcular o perímetro
-            elif sides != 'continue':
-                for i in range(int(sides)):
-                    while True:
-                        next_val = checklist(f'Digite o tamanho do {i + 1}° lado: ')
-                        if next_val == 'continue':
-                            break
-                        elif next_val > 0:
-                            break
-                        elif next_val <= 0:
-                            print('ERRO: Valor inválido para tamanho de lado.')
-                            next_val = retry()
-                            if next_val == 'continue':
-                                break
-                    if next_val == 'continue':
-                        break
-                    else:
-                        numbers.append(next_val)
-                if next_val == 'continue':
-                    continue
-                result = sum(numbers)
-            else:
+            resultado = perimetro()
+            if resultado == 'continue':
                 continue
-            # Apresentar resultado
-            print(f'Perímetro = {result}')
-            input()
+            else:
+                print(f'Perímetro = {resultado}')
+                input()
             
         else:
             # Caso seja selecionada uma opção inválida,

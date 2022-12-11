@@ -278,7 +278,30 @@ def minimo():
 
 # Função para calcular a área escolhida pelo usuário
 def area():
-    pass
+    while True:
+        selection('ÁREA SELECIONADA')
+        # Perguntar qual é a forma geométrica para o cálculo da área
+        print('Escolha uma forma geométrica para calcular a área')
+        print('-' * 20)
+        print('1 - Quadrados e Retângulos\n'
+            '2 - Trapézios\n'
+            '3 - Triângulos\n'
+            '4 - Circunferências')
+        print('-' * 20)
+        decision = checklist()
+        if decision == 'continue':
+            return 'continue'
+        # Indicar erro caso seja feita uma opção inválida
+        elif decision in range(1, 5):
+            break
+        else:
+            print('ERRO: Opção inválida!')
+            decision = retry()
+            if decision == 'continue':
+                return 'continue'
+    # Usar função area_calc() para calcular a área desejada
+    result = area_calc(int(decision))
+    return result
 
 
 def area_calc(shape):
@@ -555,37 +578,13 @@ if __name__ == '__main__':
         # ÁREA
         elif option == 'J':
             system('cls')
-            while True:
-                selection('ÁREA SELECIONADA')
-                # Perguntar qual é a forma geométrica para o cálculo da área
-                print('Escolha uma forma geométrica para calcular a área')
-                print('-' * 20)
-                print('1 - Quadrados e Retângulos\n'
-                    '2 - Trapézios\n'
-                    '3 - Triângulos\n'
-                    '4 - Circunferências')
-                print('-' * 20)
-                decision = checklist()
-                if decision == 'continue':
-                    break
-                # Indicar erro caso seja feita uma opção inválida
-                elif decision in range(1, 5):
-                    break
-                else:
-                    print('ERRO: Opção inválida!')
-                    decision = retry()
-                    if decision == 'continue':
-                        break
-            if decision == 'continue':
-                continue
-            # Usar função area() para calcular a área desejada
-            else:
-                result = area_calc(int(decision))
-                if result == 'continue':
-                    continue
+            resultado = area()
             # Apresentar resultado
-            print(f'Área = {result:.2f}')
-            input()
+            if resultado == 'continue':
+                continue
+            else:
+                print(f'Área = {resultado:.2f}')
+                input()
             
         # PERÍMETRO
         elif option == 'K':

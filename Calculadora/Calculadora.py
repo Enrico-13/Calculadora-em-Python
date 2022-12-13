@@ -92,7 +92,9 @@ def soma():
     # Somar e apresentar resultado
     return numbers, sum(numbers)
 
+
 # Função subtração
+
 def subtracao():
     numbers = []
     numbers.clear()
@@ -284,9 +286,9 @@ def area():
         print('Escolha uma forma geométrica para calcular a área')
         print('-' * 20)
         print('1 - Quadrados e Retângulos\n'
-            '2 - Trapézios\n'
-            '3 - Triângulos\n'
-            '4 - Circunferências')
+              '2 - Trapézios\n'
+              '3 - Triângulos\n'
+              '4 - Circunferências')
         print('-' * 20)
         decision = checklist()
         if decision == 'continue':
@@ -401,7 +403,7 @@ def area_calc(shape):
 def perimetro():
     while True:
         sides = checklist('Digite o número de lados da sua forma geométrica'
-                        ' (0 caso seja circunferência): ')
+                          ' (0 caso seja circunferência): ')
         if sides < 0 or not sides.is_integer() or 0 < sides <= 2:
             print('ERRO: Número inválido de lados.')
             sides = retry()
@@ -421,7 +423,7 @@ def perimetro():
                     return 'continue'
             else:
                 break
-        return (2 * pi * radius)
+        return 2 * pi * radius
     # Caso contrário, pedir o tamanho de cada lado da forma geométrica
     # pedida e calcular o perímetro
     elif sides != 'continue':
@@ -453,17 +455,17 @@ if __name__ == '__main__':
         print('-' * 20)
         print('Escolha uma opção:')
         print('A - Somar\n'
-            'B - Subtrair\n'
-            'C - Multiplicar\n'
-            'D - Dividir\n'
-            'E - Potência\n'
-            'F - Raiz Quadrada\n'
-            'G - Média\n'
-            'H - Máximo\n'
-            'I - Mínimo\n'
-            'J - Área\n'
-            'K - Perímetro\n'
-            'S - Sair')
+              'B - Subtrair\n'
+              'C - Multiplicar\n'
+              'D - Dividir\n'
+              'E - Potência\n'
+              'F - Raiz Quadrada\n'
+              'G - Média\n'
+              'H - Máximo\n'
+              'I - Mínimo\n'
+              'J - Área\n'
+              'K - Perímetro\n'
+              'S - Sair')
         print('-' * 20)
         # receber opçao do usuário
         option = input().upper().strip()
@@ -495,7 +497,7 @@ if __name__ == '__main__':
                 print(*resultado[0], sep=' - ', end=' = ')
                 print(resultado[1])
                 input()
-            
+
         # MULTIPLICAR
         elif option == 'C':
             system('cls')
@@ -541,7 +543,7 @@ if __name__ == '__main__':
             else:
                 print(f'sqrt({resultado[0]}) = {resultado[1]}')
                 input()
-            
+
         # MÉDIA
         elif option == 'G':
             system('cls')
@@ -552,7 +554,7 @@ if __name__ == '__main__':
             else:
                 print(f'Média de {resultado[0]} = {resultado[1]}')
                 input()
-        
+
         # MÁXIMO
         elif option == 'H':
             system('cls')
@@ -563,7 +565,7 @@ if __name__ == '__main__':
             else:
                 print(f'Máximo de {resultado[0]} = {resultado[1]}')
                 input()
-            
+
         # MÍNIMO
         elif option == 'I':
             system('cls')
@@ -585,7 +587,7 @@ if __name__ == '__main__':
             else:
                 print(f'Área = {resultado:.2f}')
                 input()
-            
+
         # PERÍMETRO
         elif option == 'K':
             system('cls')
@@ -596,7 +598,7 @@ if __name__ == '__main__':
             else:
                 print(f'Perímetro = {resultado}')
                 input()
-            
+
         else:
             # Caso seja selecionada uma opção inválida,
             # o programa irá indicar o erro e reimprimir o menu

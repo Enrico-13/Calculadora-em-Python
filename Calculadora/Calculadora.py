@@ -445,7 +445,7 @@ def perimetro():
         return sum(numbers)
 
 
-if __name__ == '__main__':
+def main():
     # Criar o menu
     option = ''
     while True:
@@ -604,3 +604,7 @@ if __name__ == '__main__':
             # o programa irá indicar o erro e reimprimir o menu
             print('ERRO: Opção inválida!')
             input()
+
+
+if __name__ == '__main__':
+    main()
